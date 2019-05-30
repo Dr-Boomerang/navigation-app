@@ -3,7 +3,11 @@ import React from 'react';
 function Tasks () {
   return (
     <div>
-      <h1>What am I doing now?</h1>
+      <h1>Do now:</h1>
+      <ol>
+        <li>Use @material to build a nicer interface for moving around here</li>        
+      </ol>
+      <h1>Do that later</h1>
         <ol>
           <li>How to make the tic-tac toe remember it's state?</li>
           <li>Put the API to work</li>
@@ -34,6 +38,7 @@ function Tasks () {
       <h3>More things to check:</h3>
       <ol>
         <li>This thing that Avi was talking about</li>
+        <li>How to deploy my React application</li>
       </ol>
       <h4>Things to remember</h4>
       <ol>

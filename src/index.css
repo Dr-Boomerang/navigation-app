@@ -5,6 +5,11 @@ body {
   font-family: Calibri;
 }
 
+/* this is not a serious solution */
+ul.header {
+  margin-top: 50px;
+}
+
 ul.header li {
   display: inline;  
   margin: 5px;
@@ -18,6 +23,9 @@ ul.header li a {
 }
 
 .active {
+  background-color: darkblue;  
+}
+
+Drawer {
   background-color: darkblue;
-  
 }
