@@ -1,0 +1,23 @@
+body {
+  background-color: rgb(25, 25, 25);
+  color: lightgray;
+  padding: 10px;
+  font-family: Calibri;
+}
+
+ul.header li {
+  display: inline;  
+  margin: 5px;
+  font-weight: bold;  
+}
+
+ul.header li a {
+  text-decoration: none;
+  color: lightgray;
+  padding: 5px;
+}
+
+.active {
+  background-color: darkblue;
+  
+}
