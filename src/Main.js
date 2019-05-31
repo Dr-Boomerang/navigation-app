@@ -80,11 +80,11 @@ function Main () {
           
             <ListItem button onClick={() => toggleDrawer()}>
               <Typography variant="h6" color="red" >
-              {/* <NavLink to={item.address} color="red">  */}
+              <NavLink to={item.address} color="red"> 
                 <ListItemText 
                   primary={item.label}
                 />
-                {/* </NavLink> */}
+                </NavLink>
               </Typography>
             </ListItem>
           

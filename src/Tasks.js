@@ -16,8 +16,14 @@ function Tasks () {
           <li>Turn that into a controlled component</li>
           <li>Figure out how to do the design itself</li>
           <li>Move it down somehow</li>
-
         </ol>
+      <h2>Publish</h2>
+      <ol>
+        <li>Make sure I can publish a single HTML</li>
+        <li></li>
+        <li></li>
+      </ol>
+      
       <h2>Things that I want to work on:</h2>
       <ol>
         <li>Navigation panel</li>
