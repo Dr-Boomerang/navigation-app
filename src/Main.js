@@ -6,14 +6,14 @@ import Api from './Api';
 import Tasks from './Tasks';
 
 import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+// import Tabs from '@material-ui/core/Tabs';
+// import Tab from '@material-ui/core/Tab';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu';
-import Button from '@material-ui/core/Button'
+// import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography';
-import Drawer from '@material-ui/core/SwipeableDrawer';
+import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -40,15 +40,25 @@ const useStyles = makeStyles(theme => ({
 // how do I call the toggle drawer from here?
 // combine git with this friend
 
-{/* <li><NavLink exact to="/">Home</NavLink></li>
-            <li></li>
-            <li><NavLink to="/api">Using API</NavLink></li>        
-            <li><NavLink to="/2do">Things to do!</NavLink></li>    */}
+/* <li><NavLink exact to="/">Home</NavLink></li>
+<li></li>
+<li><NavLink to="/api">Using API</NavLink></li>        
+<li><NavLink to="/2do">Things to do!</NavLink></li>    */
 
 function Main () {
   const classes = useStyles();
   const [state, setState] = React.useState(false);
 
+  // The State of the TicTacToe game
+  // It's here because I want to remember the state even if I navigate away from the page
+  const [history, setHistory] = React.useState([{
+    squares: Array(9).fill(null)}])
+  const [stepNumber, setStepNumber] = React.useState(0)
+  const [xIsNext, setXIsNext] = React.useState(true)
+
+  
+  
+  
   function toggleDrawer() {
     setState(!state);
   }
@@ -78,8 +88,8 @@ function Main () {
       navigationItems.map((item) => {        
         return(
           
-            <ListItem button onClick={() => toggleDrawer()}>
-              <Typography variant="h6" color="red" >
+            <ListItem key={item.address} button onClick={() => toggleDrawer()}>
+              <Typography variant="h6">
               <NavLink to={item.address} color="red"> 
                 <ListItemText 
                   primary={item.label}
@@ -106,44 +116,62 @@ function Main () {
   // where is the right location of the drawer? Think about it
   return (
     <div className={classes.root}>
-    <HashRouter>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton 
-            edge="start" 
-            className={classes.menuButton} 
-            color="inherit" 
-            aria-label="Menu"
-            onClick={() => toggleDrawer()}
-          >
-
-            <MenuIcon />
+      <HashRouter>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton 
+              edge="start" 
+              className={classes.menuButton} 
+              color="inherit" 
+              aria-label="Menu"
+              onClick={() => toggleDrawer()}
+            >
             
-          </IconButton>
-          <Drawer
-          classes={{ paper: classes.paper}}
-          open={state}
-          onClose={toggleDrawer}              
-          >
-          
-            <MenuList></MenuList>
-          
-          
-          </Drawer>
-        </Toolbar>          
-      </AppBar>       
-      <div className="content">
-        <Route exact path ="/" component={Home}/>
-        <Route path ="/game" component={Game}/>
-        <Route path ="/api" component={Api}/>
-        <Route path ="/2do" component={Tasks}/>
-      </div>    
-    </HashRouter>
+              <MenuIcon />
+              
+              {/* Think how to change it based on the page that I'm on
+              <Typography variant="h6">
+                Hello
+              </Typography> */}
+
+            </IconButton>
+            <Drawer
+            classes={{ paper: classes.paper}}
+            open={state}
+            onClose={toggleDrawer}              
+            >
+            
+              <MenuList></MenuList>
+            
+            
+            </Drawer>
+          </Toolbar>          
+        </AppBar>       
+        <div className="content">
+          <Route exact path ="/" component={Home}/>
+          <Route 
+            path ="/game"
+            render={(props) => <Game 
+              history={history} 
+              stepNumber={stepNumber}
+              xIsNext={xIsNext}
+            />}
+
+            
+
+
+          />
+          <Route path ="/api" component={Api}/>
+          <Route path ="/2do" component={Tasks}/>
+        </div>    
+      </HashRouter>
     </div>
   );
 }
 
 export default Main;
+
+
 
 // <NavLink to="/home"> 
 //               <ListItem button onClick={() => toggleDrawer()}>

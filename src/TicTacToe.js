@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import './index.css';
+import './game.css';
 
 // Questions to Itai:
 // not sure if it makes sense to do a function outside the function
@@ -45,28 +45,26 @@ function Board (props) {
 }
 
 
+// Why did itai say we don't need render props?
+// do a quick experiment with this and see where does it lead you to
 
 
 
+function Game (props)  {  
 
-function Game ()  {  
-  const [history, setHistory] = useState([{
-    squares: Array(9).fill(null)}])
-  const [stepNumber, setStepNumber] = useState(0)
-  const [xIsNext, setXIsNext] = useState(true)
 
   // does the change in the history naming makes sense.
   function handleClick(i) {
-    const newHistory = history.slice(0, stepNumber + 1);
-    const current = newHistory[newHistory.length - 1];
-    const squares = current.squares.slice();
+    const newHistory = props.history.slice(0, props.stepNumber + 1);
+    const current = props.newHistory[newHistory.length - 1];
+    const squares = props.current.squares.slice();
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = xIsNext ? "X" : "O";
+    squares[i] = props.xIsNext ? "X" : "O";
     
     setStepNumber(newHistory.length);
-    setXIsNext(!xIsNext);
+    setXIsNext(!props.xIsNext);
     setHistory(newHistory.concat([
       {
         squares: squares
@@ -79,10 +77,10 @@ function Game ()  {
     setXIsNext((step % 2) === 0);
   }
 
-  const current = history[stepNumber];
+  const current = props.history[props.stepNumber];
   const winner = calculateWinner(current.squares);
 
-  const moves = history.map((step, move) => {
+  const moves = props.history.map((step, move) => {
     const desc = move ?
       'Go to move #' + move :
       'Go to game start';
@@ -97,7 +95,7 @@ function Game ()  {
   if (winner) {
     status = "Winner: " + winner;
   } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
+    status = "Next player: " + (props.xIsNext ? "X" : "O");
   }
 
   return (
