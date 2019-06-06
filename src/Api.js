@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 const API_KEY = 'abdf2728ed681096585f6a22980eff91';
 const CITY_ID = 293397;
-const API_URL = `http://api.openweathermap.org/data/2.5/forecast?id=${CITY_ID}&APPID=${API_KEY}`;
+const API_URL = `https://api.openweathermap.org/data/2.5/forecast?id=${CITY_ID}&APPID=${API_KEY}`;
 
 // Examples to figure out how the promises work
 // ============================================
