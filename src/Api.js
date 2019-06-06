@@ -74,10 +74,6 @@ class Api extends React.Component {
   
   
   render () {
-    // const result = test();
-    // console.log(result);
-    console.log(this.state);
-    
     return (
       <h1>The temperature in Tel Aviv is {this.state.temp}</h1>
     );

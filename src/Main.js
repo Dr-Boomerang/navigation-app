@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, NavLink, HashRouter } from 'react-router-dom';
+import { setGlobal } from 'reactn';
+
 import Home from './Home';
 import Game from './TicTacToe';
 import Api from './Api';
-import Tasks from './Tasks';
 
 import AppBar from '@material-ui/core/AppBar';
 // import Tabs from '@material-ui/core/Tabs';
@@ -20,6 +21,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 // why this one is like that?
 import { makeStyles } from '@material-ui/core/styles';
+
+setGlobal({
+  history: [{
+    squares: Array(9).fill(null)
+  }],
+  stepNumber: 0,
+  xIsNext: 'true',
+});
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -49,13 +58,6 @@ function Main () {
   const classes = useStyles();
   const [state, setState] = React.useState(false);
 
-  // The State of the TicTacToe game
-  // It's here because I want to remember the state even if I navigate away from the page
-  const [history, setHistory] = React.useState([{
-    squares: Array(9).fill(null)}])
-  const [stepNumber, setStepNumber] = React.useState(0)
-  const [xIsNext, setXIsNext] = React.useState(true)
-
   
   
   
@@ -71,9 +73,7 @@ function Main () {
     { address: '/game',
       label: 'Tic Tac Toe' },
     { address: '/api', 
-      label: 'API Testing' },
-    { address: '/2do', 
-      label: 'My Tasks List' }
+      label: 'API Testing' },    
   ]
     
   // how to do the navigation in a smart way?
@@ -149,20 +149,8 @@ function Main () {
         </AppBar>       
         <div className="content">
           <Route exact path ="/" component={Home}/>
-          <Route 
-            path ="/game"
-            render={(props) => <Game 
-              history={history} 
-              stepNumber={stepNumber}
-              xIsNext={xIsNext}
-            />}
-
-            
-
-
-          />
+          <Route path ="/game" component={Game}/>
           <Route path ="/api" component={Api}/>
-          <Route path ="/2do" component={Tasks}/>
         </div>    
       </HashRouter>
     </div>

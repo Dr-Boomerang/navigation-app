@@ -1,5 +1,6 @@
 import React from 'react';
-import { useState } from 'react';
+import { useGlobal } from 'reactn';
+
 import './game.css';
 
 // Questions to Itai:
@@ -50,21 +51,20 @@ function Board (props) {
 
 
 
-function Game (props)  {  
-
+function Game ()  {  
 
   // does the change in the history naming makes sense.
   function handleClick(i) {
-    const newHistory = props.history.slice(0, props.stepNumber + 1);
-    const current = props.newHistory[newHistory.length - 1];
-    const squares = props.current.squares.slice();
+    const newHistory = history.slice(0, stepNumber + 1);
+    const current = newHistory[newHistory.length - 1];
+    const squares = current.squares.slice();
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = props.xIsNext ? "X" : "O";
+    squares[i] = xIsNext ? "X" : "O";
     
     setStepNumber(newHistory.length);
-    setXIsNext(!props.xIsNext);
+    setXIsNext(!xIsNext);
     setHistory(newHistory.concat([
       {
         squares: squares
@@ -76,11 +76,20 @@ function Game (props)  {
     setStepNumber(step);
     setXIsNext((step % 2) === 0);
   }
+  
+  // Those are the variables that I want to turn global
+  const [history, setHistory] = useGlobal('history');  
+  const [stepNumber, setStepNumber] = useGlobal('stepNumber');
+  const [xIsNext, setXIsNext] = useGlobal('xIsNext');
 
-  const current = props.history[props.stepNumber];
+  // Why is it being printed twice?
+  // Figure out how the next bug was introduced.
+  
+  // The current refers to the current board:
+  const current = history[stepNumber];
   const winner = calculateWinner(current.squares);
 
-  const moves = props.history.map((step, move) => {
+  const moves = history.map((step, move) => {
     const desc = move ?
       'Go to move #' + move :
       'Go to game start';
@@ -95,7 +104,7 @@ function Game (props)  {
   if (winner) {
     status = "Winner: " + winner;
   } else {
-    status = "Next player: " + (props.xIsNext ? "X" : "O");
+    status = "Next player: " + (xIsNext ? "X" : "O");
   }
 
   return (
